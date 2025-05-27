@@ -50,7 +50,7 @@ const topics = [
 
     {
         title: "Summits & Conferences",
-        url: "summits.html",
+        url: "Summits.html",
         connections: [1, 3, 7],
         position: { x: 50, y: 55 }
     }
