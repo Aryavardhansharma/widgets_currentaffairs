@@ -1,0 +1,96 @@
+/* style.css */
+:root {
+    --primary-bg: #1a1a2e;
+    --accent: #4ecca3;
+    --text: #eeeeee;
+    --card-bg: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    background: var(--primary-bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    color: var(--accent);
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Widget Styles */
+.widget-box {
+    background: var(--card-bg);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+}
+
+.widget-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(78, 204, 163, 0.3);
+}
+
+.widget-content {
+    position: relative;
+    text-align: center;
+}
+
+.widget-content h2 {
+    color: var(--accent);
+    margin-bottom: 15px;
+}
+
+.widget-icon {
+    font-size: 2.5rem;
+    margin-top: 15px;
+}
+
+/* Current Affairs Page Styles */
+.back-btn {
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(78, 204, 163, 0.1);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.content-card {
+    background: var(--card-bg);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.content-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(78, 204, 163, 0.2);
+}
