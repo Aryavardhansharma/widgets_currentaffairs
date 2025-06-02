@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daily News</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f8f8f8;
+    }
+    #categorySelect {
+      margin-bottom: 20px;
+      padding: 8px;
+    }
+    .news {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .news h4 {
+      margin: 0;
+    }
+    .news p {
+      margin-top: 5px;
+      color: #444;
+    }
+    .news a {
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <h2>Top 10 News by Category</h2>
+  
+  <select id="categorySelect">
+    <option value="general">General</option>
+    <option value="technology">Technology</option>
+    <option value="business">Business</option>
+    <option value="sports">Sports</option>
+    <option value="science">Science</option>
+    <option value="health">Health</option>
+    <option value="entertainment">Entertainment</option>
+  </select>
+
+  <div id="news-container">Loading news...</div>
+
+  <script>
+    const apiKey = 'ceac0f83966d48af9a286cddca16701c';  // Replace with your actual NewsAPI key
+
+    async function loadNews(category = 'general') {
+      document.getElementById('news-container').innerHTML = 'Loading...';
+
+      try {
+        const response = await fetch(`https://newsapi.org/v2/top-headlines?category=${category}&pageSize=10&country=in&apiKey=${apiKey}`);
+        const data = await response.json();
+
+        if (data.articles && data.articles.length > 0) {
+          const container = document.getElementById('news-container');
+          container.innerHTML = '';
+
+          data.articles.forEach(article => {
+            const newsItem = document.createElement('div');
+            newsItem.classList.add('news');
+            newsItem.innerHTML = `
+              <h4><a href="${article.url}" target="_blank">${article.title}</a></h4>
+              <p>${article.description || 'No description available.'}</p>
+            `;
+            container.appendChild(newsItem);
+          });
+        } else {
+          document.getElementById('news-container').innerText = 'No news found.';
+        }
+      } catch (error) {
+        console.error(error);
+        document.getElementById('news-container').innerText = 'Error fetching news.';
+      }
+    }
+
+    document.getElementById('categorySelect').addEventListener('change', (e) => {
+      loadNews(e.target.value);
+    });
+
+    // Load default category on first load
+    loadNews();
+  </script>
+</body>
+</html>
