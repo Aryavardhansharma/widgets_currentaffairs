@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient History Timeline</title>
+    <link rel="stylesheet" href="ancienttimeline.css">
+</head>
+<body>
+    <div class="timeline-container">
+        <h1>Ancient History Timeline</h1>
+        
+        <div class="timeline">
+            <!-- Prehistoric Era -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('prehistoric-main')">Prehistoric Era (Before 3000 BCE)</h2>
+                    <ul>
+                        <li onclick="showDetails('paleolithic')">Paleolithic Age (Old Stone Age)</li>
+                        <li onclick="showDetails('mesolithic')">Mesolithic Age (Middle Stone Age)</li>
+                        <li onclick="showDetails('neolithic')">Neolithic Age (New Stone Age)</li>
+                        <li onclick="showDetails('agriculture-dev')">Development of Agriculture</li>
+                        <li onclick="showDetails('first-settlements')">First Human Settlements</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bronze Age -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('bronze-main')">Bronze Age Civilizations (c. 3300–1200 BCE)</h2>
+                    <ul>
+                        <li onclick="showDetails('sumerians')">Sumerians in Mesopotamia</li>
+                        <li onclick="showDetails('writing-invention')">Invention of Writing (Cuneiform)</li>
+                        <li onclick="showDetails('ziggurats')">Ziggurats and City-States</li>
+                        <li onclick="showDetails('ancient-egypt')">Ancient Egypt (Old Kingdom to New Kingdom)</li>
+                        <li onclick="showDetails('pyramids-giza')">Pyramids of Giza</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Iron Age -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('iron-main')">Iron Age Civilizations (c. 1200–500 BCE)</h2>
+                    <ul>
+                        <li onclick="showDetails('mycenaean')">Mycenaean Civilization (Greece)</li>
+                        <li onclick="showDetails('assyrian-empire')">Assyrian Empire</li>
+                        <li onclick="showDetails('military-innovations')">Military Innovations</li>
+                        <li onclick="showDetails('hebrews')">Hebrews / Israelites</li>
+                        <li onclick="showDetails('monotheism')">Monotheism and the Torah</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Classical Civilizations -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('classical-main')">Classical Civilizations (c. 500 BCE–500 CE)</h2>
+                    <ul>
+                        <li onclick="showDetails('ancient-greece')">Ancient Greece</li>
+                        <li onclick="showDetails('city-states')">City-States: Athens and Sparta</li>
+                        <li onclick="showDetails('democracy-philosophy')">Democracy and Philosophy</li>
+                        <li onclick="showDetails('alexander-hellenism')">Alexander the Great & Hellenism</li>
+                        <li onclick="showDetails('roman-empire')">Roman Republic and Empire</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Late Antiquity -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('late-antiquity-main')">Late Antiquity (c. 300–600 CE)</h2>
+                    <ul>
+                        <li onclick="showDetails('fall-rome')">Fall of the Western Roman Empire</li>
+                        <li onclick="showDetails('byzantine')">Byzantine Empire</li>
+                        <li onclick="showDetails('christianization')">Christianization of Europe</li>
+                        <li onclick="showDetails('buddhism-spread')">Spread of Buddhism</li>
+                        <li onclick="showDetails('migrations')">Migrations & Invasions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prehistoric Era Popups -->
+    <div class="era-details" id="prehistoric-main">
+        <h3>Prehistoric Era Overview</h3>
+        <p>The Prehistoric Era covers human history before written records. This vast period saw the development of early human societies, tools, and cultural practices that laid the foundation for civilization.</p>
+        <p>Key characteristics:</p>
+        <ul>
+            <li>Development of stone tools and technologies</li>
+            <li>Transition from nomadic to settled lifestyles</li>
+            <li>Emergence of art and symbolic thought</li>
+            <li>Development of agriculture and animal domestication</li>
+            <li>Creation of first permanent settlements</li>
+        </ul>
+        <button onclick="hideDetails('prehistoric-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="paleolithic">
+        <h3>Paleolithic Age (Old Stone Age)</h3>
+        <p>Also known as the Old Stone Age (2.5 million - 10,000 BCE):</p>
+        <ul>
+            <li>Development of simple stone tools (Oldowan and Acheulean tools)</li>
+            <li>Control of fire (c. 1 million BCE)</li>
+            <li>Hunter-gatherer societies with nomadic lifestyles</li>
+            <li>Emergence of art (cave paintings like Lascaux, c. 17,000 BCE)</li>
+            <li>Development of language and symbolic thought</li>
+            <li>Use of animal skins for clothing</li>
+            <li>Burial practices suggesting spiritual beliefs</li>
+        </ul>
+        <button onclick="hideDetails('paleolithic')">Close</button>
+    </div>
+
+    <div class="era-details" id="mesolithic">
+        <h3>Mesolithic Age (Middle Stone Age)</h3>
+        <p>The transitional period (10,000 - 8,000 BCE):</p>
+        <ul>
+            <li>Smaller, more refined stone tools (microliths)</li>
+            <li>Early domestication of dogs</li>
+            <li>Increased use of bone and antler tools</li>
+            <li>Development of more complex social structures</li>
+            <li>Beginning of semi-permanent settlements</li>
+            <li>Improved fishing techniques</li>
+            <li>Evidence of early trade networks</li>
+        </ul>
+        <button onclick="hideDetails('mesolithic')">Close</button>
+    </div>
+
+    <div class="era-details" id="neolithic">
+        <h3>Neolithic Age (New Stone Age)</h3>
+        <p>The New Stone Age (8,000 - 3,000 BCE) brought revolutionary changes:</p>
+        <ul>
+            <li>Agricultural Revolution (fertile crescent c. 10,000 BCE)</li>
+            <li>Domestication of plants (wheat, barley, rice) and animals (sheep, goats, cattle)</li>
+            <li>Permanent settlements (Jericho c. 9,000 BCE, Çatalhöyük c. 7,500 BCE)</li>
+            <li>Pottery development (Jōmon pottery c. 14,000 BCE)</li>
+            <li>Megalithic structures (Stonehenge began c. 3,000 BCE)</li>
+            <li>Weaving of textiles</li>
+            <li>Increased population density</li>
+        </ul>
+        <button onclick="hideDetails('neolithic')">Close</button>
+    </div>
+
+    <div class="era-details" id="agriculture-dev">
+        <h3>Development of Agriculture</h3>
+        <p>The Neolithic Revolution marked humanity's transition from hunting-gathering to agriculture:</p>
+        <ul>
+            <li>Fertile Crescent (wheat/barley): 10,000-8,000 BCE</li>
+            <li>Yangtze/Yellow River (rice/millet): 7,000 BCE</li>
+            <li>Mesoamerica (maize/beans): 5,000 BCE</li>
+            <li>Andes (potatoes): 4,000 BCE</li>
+            <li>Led to population growth, food surplus, and specialization</li>
+            <li>Development of irrigation systems</li>
+            <li>Creation of calendar systems to track planting seasons</li>
+        </ul>
+        <button onclick="hideDetails('agriculture-dev')">Close</button>
+    </div>
+
+    <div class="era-details" id="first-settlements">
+        <h3>First Human Settlements</h3>
+        <p>Early permanent villages emerged worldwide:</p>
+        <ul>
+            <li>Jericho (Jordan Valley): Walls built c. 8,000 BCE</li>
+            <li>Çatalhöyük (Turkey): Large Neolithic town c. 7,500 BCE</li>
+            <li>Mehrgarh (Pakistan): Early farming community c. 7,000 BCE</li>
+            <li>Banpo (China): Yangshao culture village c. 5,000 BCE</li>
+            <li>Tell es-Sultan (Jordan): Continuously inhabited for millennia</li>
+            <li>Byblos (Lebanon): One of oldest continuously inhabited cities</li>
+            <li>Eridu (Iraq): Considered first city by Sumerians</li>
+        </ul>
+        <button onclick="hideDetails('first-settlements')">Close</button>
+    </div>
+
+    <!-- Bronze Age Popups -->
+    <div class="era-details" id="bronze-main">
+        <h3>Bronze Age Overview</h3>
+        <p>The Bronze Age (c. 3300–1200 BCE) saw the rise of the first complex civilizations, characterized by urban development, early writing systems, and bronze metallurgy.</p>
+        <p>Key developments:</p>
+        <ul>
+            <li>Emergence of first cities and states</li>
+            <li>Invention of writing systems</li>
+            <li>Development of bronze tools and weapons</li>
+            <li>Construction of monumental architecture</li>
+            <li>Establishment of trade networks</li>
+        </ul>
+        <button onclick="hideDetails('bronze-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="sumerians">
+        <h3>Sumerians in Mesopotamia</h3>
+        <p>The world's first civilization emerged in Sumer (southern Mesopotamia):</p>
+        <ul>
+            <li>City-states: Ur, Uruk, Lagash, Eridu (from c. 2900 BCE)</li>
+            <li>Development of wheel (c. 3500 BCE) and plow</li>
+            <li>Epic of Gilgamesh - earliest known literature</li>
+            <li>Advanced mathematics (base-60 system)</li>
+            <li>First law codes (Ur-Nammu code c. 2100 BCE)</li>
+            <li>Complex irrigation systems</li>
+            <li>Lunar calendar</li>
+        </ul>
+        <button onclick="hideDetails('sumerians')">Close</button>
+    </div>
+
+    <div class="era-details" id="writing-invention">
+        <h3>Invention of Writing (Cuneiform)</h3>
+        <p>Cuneiform emerged in Sumer around 3400-3300 BCE:</p>
+        <ul>
+            <li>Evolved from pictographs to wedge-shaped signs</li>
+            <li>Initially used for accounting and administrative records</li>
+            <li>Written on clay tablets with reed styluses</li>
+            <li>Used for multiple languages: Sumerian, Akkadian, Hittite</li>
+            <li>Deciphered in the 19th century by Henry Rawlinson</li>
+            <li>Enabled recording of laws, literature, and history</li>
+            <li>Paved the way for later writing systems</li>
+        </ul>
+        <button onclick="hideDetails('writing-invention')">Close</button>
+    </div>
+
+    <div class="era-details" id="ziggurats">
+        <h3>Ziggurats and City-States</h3>
+        <p>Ziggurats were massive stepped pyramids that dominated Mesopotamian cities:</p>
+        <ul>
+            <li>Religious centers dedicated to city deities</li>
+            <li>Built with sun-baked bricks and faced with fired bricks</li>
+            <li>Examples: Great Ziggurat of Ur (c. 2100 BCE), Etemenanki in Babylon</li>
+            <li>City-states were independent political units with:</li>
+            <li>- Urban center surrounded by agricultural land</li>
+            <li>- Own government, laws, and patron deity</li>
+            <li>- Defensive walls for protection</li>
+            <li>Competition between city-states led to early warfare</li>
+        </ul>
+        <button onclick="hideDetails('ziggurats')">Close</button>
+    </div>
+
+    <div class="era-details" id="ancient-egypt">
+        <h3>Ancient Egypt (Old Kingdom to New Kingdom)</h3>
+        <p>Egyptian civilization developed along the Nile River:</p>
+        <ul>
+            <li>Old Kingdom (2686-2181 BCE): Age of pyramids</li>
+            <li>Middle Kingdom (2055-1650 BCE): Reunification and expansion</li>
+            <li>New Kingdom (1550-1069 BCE): Imperial Egypt, Valley of Kings</li>
+            <li>Hieroglyphic writing developed c. 3200 BCE</li>
+            <li>Complex religious beliefs with many deities</li>
+            <li>Advanced medicine, mathematics, and astronomy</li>
+            <li>Pharaohs considered divine rulers</li>
+        </ul>
+        <button onclick="hideDetails('ancient-egypt')">Close</button>
+    </div>
+
+    <div class="era-details" id="pyramids-giza">
+        <h3>Pyramids of Giza</h3>
+        <p>The Giza pyramid complex includes:</p>
+        <ul>
+            <li>Great Pyramid of Khufu (c. 2560 BCE): Tallest ancient structure</li>
+            <li>Pyramid of Khafre: With intact limestone casing at top</li>
+            <li>Pyramid of Menkaure: Smallest of the three</li>
+            <li>Great Sphinx: Monumental sculpture with lion's body and human head</li>
+            <li>Constructed with precise alignment to cardinal points</li>
+            <li>Built by skilled workers, not slaves as previously thought</li>
+            <li>Represented the pharaoh's journey to the afterlife</li>
+        </ul>
+        <button onclick="hideDetails('pyramids-giza')">Close</button>
+    </div>
+
+    <!-- Iron Age Popups -->
+    <div class="era-details" id="iron-main">
+        <h3>Iron Age Overview</h3>
+        <p>The Iron Age (c. 1200-500 BCE) was characterized by:</p>
+        <ul>
+            <li>Widespread use of iron tools and weapons</li>
+            <li>Collapse of Bronze Age civilizations</li>
+            <li>Rise of new empires and kingdoms</li>
+            <li>Development of alphabetic writing systems</li>
+            <li>Expansion of trade networks</li>
+            <li>Emergence of monotheistic religions</li>
+        </ul>
+        <button onclick="hideDetails('iron-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="mycenaean">
+        <h3>Mycenaean Civilization (Greece)</h3>
+        <p>Late Bronze Age Greek civilization (c. 1600-1100 BCE):</p>
+        <ul>
+            <li>Centered around fortified palaces</li>
+            <li>Linear B script - earliest form of Greek</li>
+            <li>Known for warrior culture and epic poetry</li>
+            <li>Major sites: Mycenae, Tiryns, Pylos</li>
+            <li>Famous for "Mask of Agamemnon" gold death mask</li>
+            <li>Megaron architecture: central hall with hearth</li>
+            <li>Declined during the Bronze Age Collapse c. 1200 BCE</li>
+        </ul>
+        <button onclick="hideDetails('mycenaean')">Close</button>
+    </div>
+
+    <div class="era-details" id="assyrian-empire">
+        <h3>Assyrian Empire</h3>
+        <p>The Neo-Assyrian Empire (911-609 BCE) was a military powerhouse:</p>
+        <ul>
+            <li>Developed first large professional army</li>
+            <li>Used iron weapons, siege engines, and cavalry</li>
+            <li>Capital at Nineveh with library containing 30,000 tablets</li>
+            <li>Known for brutal warfare and mass deportations</li>
+            <li>Extensive road system for rapid troop movement</li>
+            <li>Rulers: Ashurnasirpal II, Sargon II, Ashurbanipal</li>
+            <li>Conquered Egypt, Babylon, and most of Near East</li>
+        </ul>
+        <button onclick="hideDetails('assyrian-empire')">Close</button>
+    </div>
+
+    <div class="era-details" id="military-innovations">
+        <h3>Military Innovations</h3>
+        <p>Iron Age military advancements:</p>
+        <ul>
+            <li>Widespread use of iron weapons (stronger, cheaper than bronze)</li>
+            <li>Development of cavalry units</li>
+            <li>Siege warfare technology: battering rams, siege towers</li>
+            <li>Assyrian innovations: Pioneered combined arms tactics</li>
+            <li>Chariots evolved into heavier, more specialized forms</li>
+            <li>Standardized equipment for large armies</li>
+            <li>Early forms of military engineering</li>
+        </ul>
+        <button onclick="hideDetails('military-innovations')">Close</button>
+    </div>
+
+    <div class="era-details" id="hebrews">
+        <h3>Hebrews / Israelites</h3>
+        <p>Ancient Semitic people of the Levant:</p>
+        <ul>
+            <li>Established kingdoms of Israel and Judah</li>
+            <li>Developed monotheistic worship of Yahweh</li>
+            <li>Biblical accounts describe early history and kings</li>
+            <li>King David (c. 1000 BCE) established Jerusalem as capital</li>
+            <li>King Solomon built First Temple</li>
+            <li>Assyrian conquest of Israel (722 BCE)</li>
+            <li>Babylonian captivity (586 BCE) and later return</li>
+        </ul>
+        <button onclick="hideDetails('hebrews')">Close</button>
+    </div>
+
+    <div class="era-details" id="monotheism">
+        <h3>Monotheism and the Torah</h3>
+        <p>Revolutionary religious development:</p>
+        <ul>
+            <li>Hebrews developed exclusive worship of one God (Yahweh)</li>
+            <li>Torah (first five books of Hebrew Bible) compiled</li>
+            <li>Concept of covenant between God and his people</li>
+            <li>Prophets emphasized ethical monotheism</li>
+            <li>Influenced later Abrahamic religions</li>
+            <li>Developed during Babylonian exile (6th century BCE)</li>
+            <li>Synagogue worship emerged during exile</li>
+        </ul>
+        <button onclick="hideDetails('monotheism')">Close</button>
+    </div>
+
+    <!-- Classical Civilizations Popups -->
+    <div class="era-details" id="classical-main">
+        <h3>Classical Civilizations Overview</h3>
+        <p>Period of great cultural achievements and empires:</p>
+        <ul>
+            <li>Development of philosophy, democracy, and science</li>
+            <li>Expansion of trade routes like the Silk Road</li>
+            <li>Rise and fall of large empires</li>
+            <li>Spread of universal religions</li>
+            <li>Advances in art, architecture, and literature</li>
+        </ul>
+        <button onclick="hideDetails('classical-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="ancient-greece">
+        <h3>Ancient Greece</h3>
+        <p>Foundations of Western civilization (c. 800-146 BCE):</p>
+        <ul>
+            <li>Birthplace of democracy, philosophy, and Olympic Games</li>
+            <li>Homeric epics: Iliad and Odyssey</li>
+            <li>Development of classical architecture orders</li>
+            <li>Thriving city-states with distinct identities</li>
+            <li>Persian Wars (499-449 BCE) and Peloponnesian War (431-404 BCE)</li>
+            <li>Legacy in art, literature, and political thought</li>
+        </ul>
+        <button onclick="hideDetails('ancient-greece')">Close</button>
+    </div>
+
+    <div class="era-details" id="city-states">
+        <h3>City-States: Athens and Sparta</h3>
+        <p>Contrasting Greek poleis:</p>
+        <ul>
+            <li>Athens: Birthplace of democracy, cultural center</li>
+            <li>- Direct democracy with citizen participation</li>
+            <li>- Naval power with Delian League</li>
+            <li>- Golden Age under Pericles (461-429 BCE)</li>
+            <li>Sparta: Militaristic oligarchy</li>
+            <li>- Agoge education system for warriors</li>
+            <li>- Helot serf class worked the land</li>
+            <li>- Peloponnesian League dominance</li>
+        </ul>
+        <button onclick="hideDetails('city-states')">Close</button>
+    </div>
+
+    <div class="era-details" id="democracy-philosophy">
+        <h3>Democracy and Philosophy</h3>
+        <p>Athenian contributions to governance and thought:</p>
+        <ul>
+            <li>Cleisthenes established democracy (508 BCE)</li>
+            <li>Citizens participated in Assembly and juries</li>
+            <li>Socrates (469-399 BCE): Socratic method</li>
+            <li>Plato (428-348 BCE): Theory of Forms, Academy</li>
+            <li>Aristotle (384-322 BCE): Logic, scientific method</li>
+            <li>Sophists: Professional teachers of rhetoric</li>
+            <li>Philosophical schools: Stoicism, Epicureanism</li>
+        </ul>
+        <button onclick="hideDetails('democracy-philosophy')">Close</button>
+    </div>
+
+    <div class="era-details" id="alexander-hellenism">
+        <h3>Alexander the Great & Hellenism</h3>
+        <p>Macedonian conquest and its cultural impact:</p>
+        <ul>
+            <li>Alexander III of Macedon (356-323 BCE)</li>
+            <li>Conquered Persian Empire by age 25</li>
+            <li>Reached India before troops mutinied</li>
+            <li>Founded cities including Alexandria in Egypt</li>
+            <li>Hellenistic culture blended Greek and Eastern elements</li>
+            <li>Spread Greek language, art, and ideas</li>
+            <li>Divided into successor kingdoms after his death</li>
+        </ul>
+        <button onclick="hideDetails('alexander-hellenism')">Close</button>
+    </div>
+
+    <div class="era-details" id="roman-empire">
+        <h3>Roman Republic and Empire</h3>
+        <p>Rome's evolution from city-state to empire:</p>
+        <ul>
+            <li>Republic (509-27 BCE): Senate and elected magistrates</li>
+            <li>Punic Wars (264-146 BCE) against Carthage</li>
+            <li>Imperial period (27 BCE-476 CE) began with Augustus</li>
+            <li>Pax Romana (27 BCE-180 CE): Era of relative peace</li>
+            <li>Engineering marvels: Roads, aqueducts, Colosseum</li>
+            <li>Legal system influenced modern law</li>
+            <li>Spread of Christianity in later empire</li>
+        </ul>
+        <button onclick="hideDetails('roman-empire')">Close</button>
+    </div>
+
+    <!-- Late Antiquity Popups -->
+    <div class="era-details" id="late-antiquity-main">
+        <h3>Late Antiquity Overview</h3>
+        <p>Transition period between classical antiquity and Middle Ages:</p>
+        <ul>
+            <li>Decline of Western Roman Empire</li>
+            <li>Rise of Christianity and institutional church</li>
+            <li>Spread of monasticism</li>
+            <li>Emergence of Byzantine Empire in the East</li>
+            <li>Development of new cultural syntheses</li>
+            <li>Barbarian kingdoms established in West</li>
+        </ul>
+        <button onclick="hideDetails('late-antiquity-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="fall-rome">
+        <h3>Fall of the Western Roman Empire</h3>
+        <p>Complex process spanning centuries:</p>
+        <ul>
+            <li>Economic troubles: Inflation, taxation issues</li>
+            <li>Military challenges: Mercenary armies, border pressures</li>
+            <li>Political instability: Frequent emperor changes</li>
+            <li>Barbarian invasions: Visigoths, Vandals, Huns</li>
+            <li>Sack of Rome: 410 CE by Visigoths, 455 CE by Vandals</li>
+            <li>Last emperor Romulus Augustulus deposed 476 CE</li>
+            <li>Eastern Empire continued as Byzantine Empire</li>
+        </ul>
+        <button onclick="hideDetails('fall-rome')">Close</button>
+    </div>
+
+    <div class="era-details" id="byzantine">
+        <h3>Byzantine Empire</h3>
+        <p>Eastern continuation of the Roman Empire:</p>
+        <ul>
+            <li>Capital Constantinople (modern Istanbul)</li>
+            <li>Lasted nearly 1000 years after Western collapse</li>
+            <li>Justinian I (527-565 CE): Corpus Juris Civilis, Hagia Sophia</li>
+            <li>Greek language and Orthodox Christianity</li>
+            <li>Iconoclasm controversy (8th-9th centuries)</li>
+            <li>Preserved classical Greek knowledge</li>
+            <li>Fell to Ottoman Turks in 1453</li>
+        </ul>
+        <button onclick="hideDetails('byzantine')">Close</button>
+    </div>
+
+    <div class="era-details" id="christianization">
+        <h3>Christianization of Europe</h3>
+        <p>Spread of Christianity across the continent:</p>
+        <ul>
+            <li>Constantine's Edict of Milan (313 CE) legalized Christianity</li>
+            <li>Theodosius made Christianity state religion (380 CE)</li>
+            <li>Monasticism spread: St. Benedict, St. Patrick</li>
+            <li>Conversion of barbarian tribes: Franks, Goths</li>
+            <li>Missionaries: St. Augustine to England, Cyril and Methodius to Slavs</li>
+            <li>Development of papal authority</li>
+            <li>Christianity became unifying cultural force</li>
+        </ul>
+        <button onclick="hideDetails('christianization')">Close</button>
+    </div>
+
+    <div class="era-details" id="buddhism-spread">
+        <h3>Spread of Buddhism</h3>
+        <p>Expansion beyond India during ancient period:</p>
+        <ul>
+            <li>Ashoka the Great (3rd century BCE) sent missionaries</li>
+            <li>Spread along Silk Road to Central Asia</li>
+            <li>Reached China during Han Dynasty (1st century CE)</li>
+            <li>Transmission to Southeast Asia via maritime routes</li>
+            <li>Development of Mahayana Buddhism</li>
+            <li>Monasteries became centers of learning and culture</li>
+            <li>Syncretism with local traditions</li>
+        </ul>
+        <button onclick="hideDetails('buddhism-spread')">Close</button>
+    </div>
+
+    <div class="era-details" id="migrations">
+        <h3>Migrations & Invasions</h3>
+        <p>Mass movements of peoples in late antiquity:</p>
+        <ul>
+            <li>Huns pushed Germanic tribes into Roman territory</li>
+            <li>Visigoths sacked Rome 410 CE, settled in Spain</li>
+            <li>Vandals crossed to North Africa, sacked Rome 455 CE</li>
+            <li>Angles, Saxons, and Jutes migrated to Britain</li>
+            <li>Franks established kingdom in Gaul (France)</li>
+            <li>Ostrogoths ruled Italy until Byzantine reconquest</li>
+            <li>Lombards invaded Italy after Byzantine withdrawal</li>
+        </ul>
+        <button onclick="hideDetails('migrations')">Close</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script src="ancienttimeline.js"></script>
+</body>
+</html>

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Indian History Timeline</title>
+    <style>
+        /* style.css */
+        :root {
+            --primary-bg: #0f0f1a;
+            --accent-teal: #4ecca3;
+            --accent-gold: #d4ff00;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b8b8b8;
+            --timeline-line: var(--accent-teal);
+            --era-bg: rgba(30, 30, 45, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            padding: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(78, 204, 163, 0.05) 0%, rgba(78, 204, 163, 0) 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 255, 0, 0.05) 0%, rgba(212, 255, 0, 0) 20%);
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--accent-gold);
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-teal);
+            text-shadow: 0 0 10px rgba(212, 255, 0, 0.3);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 4px;
+            background: var(--timeline-line);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(78, 204, 163, 0.5);
+        }
+
+        .era {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+        }
+
+        .era-marker {
+            position: absolute;
+            left: -44px;
+            top: 5px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            border: 4px solid var(--primary-bg);
+            box-shadow: 0 0 0 2px var(--accent-teal), 0 0 15px var(--accent-teal);
+            z-index: 2;
+        }
+
+        .era-content {
+            background: var(--era-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 3px solid var(--accent-teal);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .era-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .era h2 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .era h2:hover {
+            color: var(--accent-teal);
+        }
+
+        .era h2::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            margin-right: 10px;
+            box-shadow: 0 0 5px var(--accent-teal);
+        }
+
+        .era ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+
+        .era li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .era li:hover {
+            color: var(--accent-teal);
+        }
+
+        .era li::before {
+            content: '•';
+            color: var(--accent-teal);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .era-details {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            background: var(--primary-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 2px solid var(--accent-teal);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .era-details h3 {
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-teal);
+            padding-bottom: 0.5rem;
+        }
+
+        .era-details p, .era-details li {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .era-details button {
+            background: var(--accent-teal);
+            color: var(--primary-bg);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .era-details button:hover {
+            background: var(--accent-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 255, 0, 0.3);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 50;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -45%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .era-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(78, 204, 163, 0.2);
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline {
+                padding-left: 30px;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .era-marker {
+                left: -34px;
+                width: 20px;
+                height: 20px;
+            }
+            
+            .era-content {
+                padding: 1rem;
+            }
+            
+            .era h2 {
+                font-size: 1.2rem;
+            }
+            
+            .era-details {
+                width: 95%;
+                padding: 1.5rem;
+            }
+            
+            .era-details h3 {
+                font-size: 1.5rem;
+            }
+            
+            .era-details p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+            
+            .era {
+                margin-bottom: 2rem;
+            }
+            
+            .era li {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="timeline-container">
+        <h1>Modern Indian History Timeline</h1>
+        <div class="timeline-header">India's Journey from Colonial Rule to Global Power (1757–2025)</div>
+        
+        <div class="timeline">
+            <!-- British Colonial Era -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('colonial-main')">British Colonial Era (1757–1947)</h2>
+                    <ul>
+                        <li onclick="showDetails('plassey')">1757 - Battle of Plassey</li>
+                        <li onclick="showDetails('buxar')">1764 - Battle of Buxar</li>
+                        <li onclick="showDetails('regulating-act')">1773 - Regulating Act</li>
+                        <li onclick="showDetails('permanent-settlement')">1793 - Permanent Settlement</li>
+                        <li onclick="showDetails('tipu')">1799 - Death of Tipu Sultan</li>
+                        <li onclick="showDetails('marathas')">1818 - Defeat of Marathas</li>
+                        <li onclick="showDetails('sati')">1829 - Abolition of Sati</li>
+                        <li onclick="showDetails('railway')">1853 - First Railway (Mumbai-Thane)</li>
+                        <li onclick="showDetails('revolt')">1857 - First War of Independence</li>
+                        <li onclick="showDetails('crown-rule')">1858 - Crown Rule Begins</li>
+                        <li onclick="showDetails('inc')">1885 - Formation of Indian National Congress</li>
+                        <li onclick="showDetails('bengal-partition')">1905 - Partition of Bengal</li>
+                        <li onclick="showDetails('muslim-league')">1906 - Muslim League Founded</li>
+                        <li onclick="showDetails('capital-shift')">1911 - Capital Shift to Delhi</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Nationalist Era -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('nationalist-main')">Nationalist Era (1919–1947)</h2>
+                    <ul>
+                        <li onclick="showDetails('jallianwala')">1919 - Jallianwala Bagh Massacre</li>
+                        <li onclick="showDetails('non-cooperation')">1920-22 - Non-Cooperation Movement</li>
+                        <li onclick="showDetails('simon')">1928 - Simon Commission</li>
+                        <li onclick="showDetails('salt-march')">1930 - Salt March (Dandi March)</li>
+                        <li onclick="showDetails('gandhi-irwin')">1931 - Gandhi-Irwin Pact</li>
+                        <li onclick="showDetails('india-act')">1935 - Government of India Act</li>
+                        <li onclick="showDetails('quit-india')">1942 - Quit India Movement</li>
+                        <li onclick="showDetails('naval-mutiny')">1946 - Naval Mutiny</li>
+                        <li onclick="showDetails('independence')">1947 - Independence & Partition</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Post-Independence India -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('post-ind-main')">Post-Independence India (1947–2025)</h2>
+                    <ul>
+                        <li onclick="showDetails('nehru')">1947-64 - Nehruvian Era</li>
+                        <li onclick="showDetails('indira')">1964-84 - Indira Gandhi Era</li>
+                        <li onclick="showDetails('rajiv')">1984-99 - Rajiv Gandhi & Liberalization</li>
+                        <li onclick="showDetails('21st')">2000-2025 - 21st Century India</li>
+                        <li onclick="showDetails('science')">Science & Technology</li>
+                        <li onclick="showDetails('diplomacy')">Diplomacy</li>
+                        <li onclick="showDetails('culture')">Culture & Sports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Details -->
+    <!-- British Colonial Era Popups -->
+    <div class="era-details" id="colonial-main">
+        <h3>British Colonial Era Overview (1757–1947)</h3>
+        <p>The period of British rule in India transformed the subcontinent politically, economically, and socially. What began as a trading relationship evolved into full colonial domination.</p>
+        <p>Key characteristics:</p>
+        <ul>
+            <li>Establishment of the East India Company's political power</li>
+            <li>Economic exploitation through land revenue systems</li>
+            <li>Introduction of Western education and administrative systems</li>
+            <li>Development of infrastructure like railways and telegraph</li>
+            <li>Social reforms and emergence of Indian nationalism</li>
+            <li>Gradual transfer of power to the British Crown</li>
+        </ul>
+        <button onclick="hideDetails('colonial-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="plassey">
+        <h3>Battle of Plassey (1757)</h3>
+        <p>This battle marked the beginning of British political control in India:</p>
+        <ul>
+            <li>British East India Company vs. Nawab of Bengal Siraj-ud-Daulah</li>
+            <li>Robert Clive secured victory through betrayal and conspiracy</li>
+            <li>Mir Jafar installed as puppet ruler of Bengal</li>
+            <li>Company gained control of Bengal's treasury</li>
+            <li>Established British military supremacy in India</li>
+            <li>Paved the way for further territorial expansion</li>
+        </ul>
+        <button onclick="hideDetails('plassey')">Close</button>
+    </div>
+
+    <div class="era-details" id="buxar">
+        <h3>Battle of Buxar (1764)</h3>
+        <p>A decisive battle that confirmed British dominance in Bengal:</p>
+        <ul>
+            <li>British forces led by Hector Munro</li>
+            <li>Defeated combined forces of Mir Qasim, Shuja-ud-Daulah (Nawab of Awadh), and Mughal Emperor Shah Alam II</li>
+            <li>Resulted in the Treaty of Allahabad (1765)</li>
+            <li>Company gained Diwani rights (revenue collection) for Bengal, Bihar, and Orissa</li>
+            <li>Established British as the dominant power in eastern India</li>
+        </ul>
+        <button onclick="hideDetails('buxar')">Close</button>
+    </div>
+
+    <div class="era-details" id="regulating-act">
+        <h3>Regulating Act (1773)</h3>
+        <p>The first step by British Parliament to regulate East India Company affairs:</p>
+        <ul>
+            <li>Created the office of Governor-General of Bengal</li>
+            <li>Warren Hastings became first Governor-General</li>
+            <li>Established a Supreme Court at Calcutta</li>
+            <li>Prohibited company servants from private trade</li>
+            <li>Required company to report on revenue matters to Parliament</li>
+        </ul>
+        <button onclick="hideDetails('regulating-act')">Close</button>
+    </div>
+
+    <div class="era-details" id="permanent-settlement">
+        <h3>Permanent Settlement (1793)</h3>
+        <p>Land revenue system introduced by Lord Cornwallis in Bengal:</p>
+        <ul>
+            <li>Zamindars recognized as landowners</li>
+            <li>Fixed revenue demand permanently</li>
+            <li>Created a class of loyal landlords</li>
+            <li>Led to exploitation of peasants</li>
+            <li>Stagnated agricultural development</li>
+        </ul>
+        <button onclick="hideDetails('permanent-settlement')">Close</button>
+    </div>
+
+    <div class="era-details" id="tipu">
+        <h3>Death of Tipu Sultan (1799)</h3>
+        <p>The fall of Mysore's "Tiger" ended major resistance in South India:</p>
+        <ul>
+            <li>Killed during the Fourth Anglo-Mysore War</li>
+            <li>Siege of Seringapatam by British forces</li>
+            <li>Known for innovative administration and military tactics</li>
+            <li>Early adopter of rocket artillery</li>
+            <li>Developed alliances with French against British</li>
+        </ul>
+        <button onclick="hideDetails('tipu')">Close</button>
+    </div>
+
+    <div class="era-details" id="marathas">
+        <h3>Defeat of Marathas (1818)</h3>
+        <p>End of the Third Anglo-Maratha War established British supremacy:</p>
+        <ul>
+            <li>Peshwa Baji Rao II surrendered</li>
+            <li>Maratha Confederacy dissolved</li>
+            <li>British gained control of most of western and central India</li>
+            <li>Established the Bombay Presidency</li>
+            <li>Paved way for complete British dominance</li>
+        </ul>
+        <button onclick="hideDetails('marathas')">Close</button>
+    </div>
+
+    <div class="era-details" id="sati">
+        <h3>Abolition of Sati (1829)</h3>
+        <p>Landmark social reform by Governor-General Lord William Bentinck:</p>
+        <ul>
+            <li>Sati practice involved widow immolation on husband's pyre</li>
+            <li>Ban enforced in Bengal Presidency</li>
+            <li>Supported by reformers like Raja Ram Mohan Roy</li>
+            <li>Faced opposition from orthodox groups</li>
+            <li>Marked beginning of social reform era</li>
+        </ul>
+        <button onclick="hideDetails('sati')">Close</button>
+    </div>
+
+    <div class="era-details" id="railway">
+        <h3>First Railway (1853)</h3>
+        <p>India's first passenger train revolutionized transportation:</p>
+        <ul>
+            <li>Ran between Bombay (Mumbai) and Thane</li>
+            <li>Covered 34 km in about 45 minutes</li>
+            <li>Built by Great Indian Peninsula Railway</li>
+            <li>Accelerated economic integration</li>
+            <li>Facilitated movement of troops and goods</li>
+        </ul>
+        <button onclick="hideDetails('railway')">Close</button>
+    </div>
+
+    <div class="era-details" id="revolt">
+        <h3>First War of Independence (1857)</h3>
+        <p>Major uprising against British rule:</p>
+        <ul>
+            <li>Began as sepoy mutiny in Meerut</li>
+            <li>Spread to Delhi, Lucknow, Kanpur, Jhansi</li>
+            <li>Key leaders: Rani Lakshmibai, Nana Saheb, Bahadur Shah Zafar</li>
+            <li>Triggered by greased cartridges controversy</li>
+            <li>Resulted in end of East India Company rule</li>
+        </ul>
+        <button onclick="hideDetails('revolt')">Close</button>
+    </div>
+
+    <div class="era-details" id="crown-rule">
+        <h3>Beginning of Crown Rule (1858)</h3>
+        <p>Transfer of power from East India Company to British Crown:</p>
+        <ul>
+            <li>Government of India Act 1858</li>
+            <li>Created office of Secretary of State for India</li>
+            <li>Governor-General became Viceroy (Lord Canning first)</li>
+            <li>Established Indian Civil Service</li>
+            <li>Direct rule by British Parliament began</li>
+        </ul>
+        <button onclick="hideDetails('crown-rule')">Close</button>
+    </div>
+
+    <div class="era-details" id="inc">
+        <h3>Formation of Indian National Congress (1885)</h3>
+        <p>The INC became the leading voice of Indian nationalism:</p>
+        <ul>
+            <li>Founded by A.O. Hume with W.C. Bonnerjee as first president</li>
+            <li>Initial moderate phase sought constitutional reforms</li>
+            <li>Provided platform for educated Indians</li>
+            <li>Annual sessions across India</li>
+            <li>Later led by Tilak, Gandhi, Nehru</li>
+        </ul>
+        <button onclick="hideDetails('inc')">Close</button>
+    </div>
+
+    <div class="era-details" id="bengal-partition">
+        <h3>Partition of Bengal (1905)</h3>
+        <p>Controversial decision by Lord Curzon:</p>
+        <ul>
+            <li>Divided Bengal into Hindu-majority west and Muslim-majority east</li>
+            <li>Officially for administrative efficiency</li>
+            <li>Widely seen as "divide and rule" policy</li>
+            <li>Triggered Swadeshi Movement and boycott of British goods</li>
+            <li>Reversed in 1911 due to nationalist pressure</li>
+        </ul>
+        <button onclick="hideDetails('bengal-partition')">Close</button>
+    </div>
+
+    <div class="era-details" id="muslim-league">
+        <h3>Muslim League Founded (1906)</h3>
+        <p>Establishment of political organization for Muslim interests:</p>
+        <ul>
+            <li>Founded in Dhaka by Nawab Salimullah Khan</li>
+            <li>Aga Khan III served as first president</li>
+            <li>Initially advocated for separate electorates</li>
+            <li>Later championed the Pakistan movement</li>
+            <li>Key leaders included Muhammad Ali Jinnah</li>
+        </ul>
+        <button onclick="hideDetails('muslim-league')">Close</button>
+    </div>
+
+    <div class="era-details" id="capital-shift">
+        <h3>Capital Shift to Delhi (1911)</h3>
+        <p>Transfer of British India's capital from Calcutta to Delhi:</p>
+        <ul>
+            <li>Announced at Delhi Durbar by King George V</li>
+            <li>Partially to counter Bengali nationalism</li>
+            <li>New Delhi designed by Edwin Lutyens and Herbert Baker</li>
+            <li>Construction completed in 1931</li>
+            <li>Positioned government closer to geographical center</li>
+        </ul>
+        <button onclick="hideDetails('capital-shift')">Close</button>
+    </div>
+
+    <!-- Nationalist Era Popups -->
+    <div class="era-details" id="nationalist-main">
+        <h3>Nationalist Era Overview (1919–1947)</h3>
+        <p>This period saw the growth of mass movements against British rule:</p>
+        <ul>
+            <li>Shift from moderate demands to calls for complete independence</li>
+            <li>Emergence of Gandhi and non-violent civil disobedience</li>
+            <li>Growth of revolutionary movements</li>
+            <li>Rise of communalism and demand for partition</li>
+            <li>World War II accelerated the independence process</li>
+            <li>Final transfer of power and partition in 1947</li>
+        </ul>
+        <button onclick="hideDetails('nationalist-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="jallianwala">
+        <h3>Jallianwala Bagh Massacre (1919)</h3>
+        <p>Turning point in India's freedom struggle:</p>
+        <ul>
+            <li>British troops under Gen. Dyer fired on peaceful gathering</li>
+            <li>Occurred in Amritsar during Baisakhi festival</li>
+            <li>Official figures: 379 killed, 1,200 wounded</li>
+            <li>Triggered nationwide outrage and protests</li>
+            <li>Tagore renounced his knighthood in protest</li>
+        </ul>
+        <button onclick="hideDetails('jallianwala')">Close</button>
+    </div>
+
+    <div class="era-details" id="non-cooperation">
+        <h3>Non-Cooperation Movement (1920–1922)</h3>
+        <p>First nationwide mass movement led by Gandhi:</p>
+        <ul>
+            <li>Launched in response to Rowlatt Act and Jallianwala Bagh</li>
+            <li>Called for boycott of British institutions</li>
+            <li>Surrender of titles and honors</li>
+            <li>Withdrawal from government schools and courts</li>
+            <li>Suspended after Chauri Chaura violence (1922)</li>
+        </ul>
+        <button onclick="hideDetails('non-cooperation')">Close</button>
+    </div>
+
+    <div class="era-details" id="simon">
+        <h3>Simon Commission (1928)</h3>
+        <p>All-British committee to review constitutional reforms:</p>
+        <ul>
+            <li>No Indian member in the commission</li>
+            <li>Met with nationwide protests and black flags</li>
+            <li>"Simon Go Back" became popular slogan</li>
+            <li>Lala Lajpat Rai died from injuries during protest</li>
+            <li>Led to Nehru Report demanding dominion status</li>
+        </ul>
+        <button onclick="hideDetails('simon')">Close</button>
+    </div>
+
+    <div class="era-details" id="salt-march">
+        <h3>Salt March (Dandi March) (1930)</h3>
+        <p>Landmark act of civil disobedience against salt tax:</p>
+        <ul>
+            <li>Gandhi marched 385 km from Sabarmati to Dandi</li>
+            <li>Lasted 24 days with growing participation</li>
+            <li>Produced salt by evaporating seawater</li>
+            <li>Inspired nationwide civil disobedience</li>
+            <li>Over 60,000 Indians imprisoned</li>
+        </ul>
+        <button onclick="hideDetails('salt-march')">Close</button>
+    </div>
+
+    <div class="era-details" id="gandhi-irwin">
+        <h3>Gandhi-Irwin Pact (1931)</h3>
+        <p>Truce agreement between Gandhi and Viceroy Irwin:</p>
+        <ul>
+            <li>Congress agreed to suspend civil disobedience</li>
+            <li>Government agreed to release political prisoners</li>
+            <li>Allowed salt production for coastal communities</li>
+            <li>Congress participated in Second Round Table Conference</li>
+            <li>Temporary truce in independence struggle</li>
+        </ul>
+        <button onclick="hideDetails('gandhi-irwin')">Close</button>
+    </div>
+
+    <div class="era-details" id="india-act">
+        <h3>Government of India Act (1935)</h3>
+        <p>Most significant constitutional reform before independence:</p>
+        <ul>
+            <li>Provided provincial autonomy</li>
+            <li>Established dyarchy at the center</li>
+            <li>Created Federal Court of India</li>
+            <li>Separate electorates expanded</li>
+            <li>Basis for independent India's constitution</li>
+        </ul>
+        <button onclick="hideDetails('india-act')">Close</button>
+    </div>
+
+    <div class="era-details" id="quit-india">
+        <h3>Quit India Movement (1942)</h3>
+        <p>Massive civil disobedience movement during WWII:</p>
+        <ul>
+            <li>Gandhi's call: "Do or Die"</li>
+            <li>Demanded immediate British withdrawal</li>
+            <li>Entire Congress leadership arrested</li>
+            <li>Widespread protests and underground activities</li>
+            <li>Violently suppressed by British authorities</li>
+        </ul>
+        <button onclick="hideDetails('quit-india')">Close</button>
+    </div>
+
+    <div class="era-details" id="naval-mutiny">
+        <h3>Royal Indian Navy Mutiny (1946)</h3>
+        <p>Large-scale revolt by Indian sailors:</p>
+        <ul>
+            <li>Began on HMIS Talwar in Bombay</li>
+            <li>Spread to 78 ships and shore establishments</li>
+            <li>Over 20,000 sailors participated</li>
+            <li>Raised nationalist slogans and flags</li>
+            <li>Convinced British that Indian armed forces couldn't be relied upon</li>
+        </ul>
+        <button onclick="hideDetails('naval-mutiny')">Close</button>
+    </div>
+
+    <div class="era-details" id="independence">
+        <h3>Indian Independence (1947)</h3>
+        <p>Transfer of power and partition:</p>
+        <ul>
+            <li>Indian Independence Act passed by British Parliament</li>
+            <li>Two independent dominions: India and Pakistan</li>
+            <li>Lord Mountbatten last Viceroy and first Governor-General</li>
+            <li>Jawaharlal Nehru became India's first Prime Minister</li>
+            <li>Mass migration and violence during partition</li>
+        </ul>
+        <button onclick="hideDetails('independence')">Close</button>
+    </div>
+
+    <!-- Post-Independence Popups -->
+    <div class="era-details" id="post-ind-main">
+        <h3>Post-Independence India Overview (1947–2025)</h3>
+        <p>India's journey as an independent nation:</p>
+        <ul>
+            <li>Integration of princely states into Indian Union</li>
+            <li>Adoption of democratic constitution</li>
+            <li>Mixed economy model with Five-Year Plans</li>
+            <li>Green Revolution and economic liberalization</li>
+            <li>Emergence as global IT power and nuclear state</li>
+            <li>Challenges of poverty, communalism, and regional conflicts</li>
+        </ul>
+        <button onclick="hideDetails('post-ind-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="nehru">
+        <h3>Nehruvian Era (1947–1964)</h3>
+        <p>Jawaharlal Nehru's tenure as first Prime Minister:</p>
+        <ul>
+            <li>Integration of princely states by Sardar Patel</li>
+            <li>Assassination of Mahatma Gandhi (1948)</li>
+            <li>Constitution adopted (1950) making India a republic</li>
+            <li>First Five-Year Plan (1951-56) focused on agriculture</li>
+            <li>First general elections (1952) - world's largest democracy</li>
+            <li>States Reorganization Act (1956) on linguistic basis</li>
+            <li>Sino-Indian War (1962)</li>
+        </ul>
+        <button onclick="hideDetails('nehru')">Close</button>
+    </div>
+
+    <div class="era-details" id="indira">
+        <h3>Indira Gandhi Era (1964–1984)</h3>
+        <p>Period dominated by India's first female Prime Minister:</p>
+        <ul>
+            <li>Second Indo-Pak War (1965)</li>
+            <li>Green Revolution transformed agriculture</li>
+            <li>Bank nationalization (1969)</li>
+            <li>Third Indo-Pak War (1971) and liberation of Bangladesh</li>
+            <li>Pokhran-I nuclear test (1974)</li>
+            <li>Emergency imposed (1975-77)</li>
+            <li>Operation Blue Star (1984)</li>
+            <li>Assassination of Indira Gandhi (1984)</li>
+            <li>Anti-Sikh riots (1984)</li>
+        </ul>
+        <button onclick="hideDetails('indira')">Close</button>
+    </div>
+
+    <div class="era-details" id="rajiv">
+        <h3>Rajiv Gandhi & Liberalization (1984–1999)</h3>
+        <p>Transition to modern economy and politics:</p>
+        <ul>
+            <li>Rajiv Gandhi became youngest PM (1984)</li>
+            <li>Computerization and telecom revolution</li>
+            <li>Bofors scandal (1989)</li>
+            <li>Assassination of Rajiv Gandhi (1991)</li>
+            <li>Economic liberalization by PM Rao and FM Singh (1991)</li>
+            <li>Babri Masjid demolition (1992)</li>
+            <li>Pokhran-II nuclear tests (1998)</li>
+            <li>Kargil War (1999)</li>
+        </ul>
+        <button onclick="hideDetails('rajiv')">Close</button>
+    </div>
+
+    <div class="era-details" id="21st">
+        <h3>21st Century India (2000–2025)</h3>
+        <p>India's emergence as a global power:</p>
+        <ul>
+            <li><strong>UPA Era (2004–2014)</strong>
+                <ul>
+                    <li>Manmohan Singh as PM</li>
+                    <li>Right to Information Act (2005)</li>
+                    <li>Mumbai 26/11 attacks (2008)</li>
+                    <li>Commonwealth Games (2010)</li>
+                    <li>Nirbhaya case and criminal law reforms (2013)</li>
+                </ul>
+            </li>
+            <li><strong>NDA Era (2014–Present)</strong>
+                <ul>
+                    <li>Narendra Modi becomes PM (2014)</li>
+                    <li>Demonetization (2016)</li>
+                    <li>Goods and Services Tax (GST) introduced (2017)</li>
+                    <li>Balakot Air Strikes (2019)</li>
+                    <li>Abrogation of Article 370 (2019)</li>
+                    <li>Citizenship Amendment Act (CAA) passed (2019)</li>
+                    <li>COVID-19 pandemic (2020-21)</li>
+                    <li>Farmers' protests (2021)</li>
+                    <li>G20 Summit hosted (2023)</li>
+                    <li>General Elections (2024)</li>
+                </ul>
+            </li>
+        </ul>
+        <button onclick="hideDetails('21st')">Close</button>
+    </div>
+
+    <div class="era-details" id="science">
+        <h3>Science & Technology</h3>
+        <p>India's advancements in the 21st century:</p>
+        <ul>
+            <li><strong>ISRO Milestones</strong>
+                <ul>
+                    <li>Chandrayaan-1 (2008): Confirmed water on moon</li>
+                    <li>Mars Orbiter Mission (2013): First Asian nation to reach Mars orbit</li>
+                    <li>Chandrayaan-2 (2019): Orbiter still operational</li>
+                    <li>Chandrayaan-3 (2023): First to land near lunar south pole</li>
+                    <li>Aditya-L1 (2023): India's first solar mission</li>
+                </ul>
+            </li>
+            <li>Digital India initiative</li>
+            <li>Aadhaar: World's largest biometric ID system</li>
+            <li>Startup India: Creation of unicorn startups</li>
+            <li>Make in India and Atmanirbhar Bharat initiatives</li>
+            <li>Semiconductor manufacturing push</li>
+        </ul>
+        <button onclick="hideDetails('science')">Close</button>
+    </div>
+
+    <div class="era-details" id="diplomacy">
+        <h3>Diplomacy</h3>
+        <p>India's evolving global position:</p>
+        <ul>
+            <li>Strengthening of Quad alliance (US, Japan, Australia)</li>
+            <li>Leadership of Global South</li>
+            <li>Advocacy for UN Security Council permanent seat</li>
+            <li>Neighborhood First policy</li>
+            <li>Act East policy</li>
+            <li>Strategic autonomy in foreign policy</li>
+            <li>G20 presidency (2023)</li>
+            <li>Expansion of BRICS membership</li>
+        </ul>
+        <button onclick="hideDetails('diplomacy')">Close</button>
+    </div>
+
+    <div class="era-details" id="culture">
+        <h3>Culture & Sports</h3>
+        <p>India's soft power achievements:</p>
+        <ul>
+            <li><strong>Global Events Hosted</strong>
+                <ul>
+                    <li>Commonwealth Games (2010)</li>
+                    <li>ICC Cricket World Cups (2011, 2023)</li>
+                    <li>G20 Summit (2023)</li>
+                    <li>FIFA U-17 World Cup (2017)</li>
+                </ul>
+            </li>
+            <li><strong>Sports Achievements</strong>
+                <ul>
+                    <li>Neeraj Chopra: Olympic gold in javelin (2020)</li>
+                    <li>PV Sindhu: Olympic medals in badminton</li>
+                    <li>Indian Premier League: World's premier cricket league</li>
+                    <li>Improved performance in Paralympics</li>
+                </ul>
+            </li>
+            <li>Global recognition of Indian cinema (Oscar wins)</li>
+            <li>International success of Indian music artists</li>
+            <li>Yoga recognized by UNESCO as cultural heritage</li>
+        </ul>
+        <button onclick="hideDetails('culture')">Close</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // Show details for any popup
+        function showDetails(id) {
+            // Create overlay if it doesn't exist
+            let overlay = document.getElementById('overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.className = 'overlay';
+                overlay.id = 'overlay';
+                document.body.appendChild(overlay);
+            }
+            overlay.style.display = 'block';
+            
+            // Show the requested details
+            const details = document.getElementById(id);
+            details.style.display = 'block';
+            
+            // Prevent scrolling when details are open
+            document.body.style.overflow = 'hidden';
+            
+            // Close when clicking overlay
+            overlay.addEventListener('click', function() {
+                hideDetails(id);
+            });
+        }
+
+        // Hide details
+        function hideDetails(id) {
+            document.getElementById(id).style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openDetails = document.querySelector('.era-details[style*="display: block"]');
+                if (openDetails) {
+                    hideDetails(openDetails.id);
+                }
+            }
+        });
+
+        // Prevent event bubbling from details content
+        document.querySelectorAll('.era-details').forEach(details => {
+            details.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });   
+    </script>
+</body>
+</html>

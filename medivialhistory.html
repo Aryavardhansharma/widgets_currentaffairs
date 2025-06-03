@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medieval History Timeline</title>
+    <style>
+        /* style.css */
+        :root {
+            --primary-bg: #0f0f1a;
+            --accent-teal: #4ecca3;
+            --accent-gold: #d4ff00;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b8b8b8;
+            --timeline-line: var(--accent-teal);
+            --era-bg: rgba(30, 30, 45, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            padding: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(78, 204, 163, 0.05) 0%, rgba(78, 204, 163, 0) 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 255, 0, 0.05) 0%, rgba(212, 255, 0, 0) 20%);
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--accent-gold);
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-teal);
+            text-shadow: 0 0 10px rgba(212, 255, 0, 0.3);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 4px;
+            background: var(--timeline-line);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(78, 204, 163, 0.5);
+        }
+
+        .era {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+        }
+
+        .era-marker {
+            position: absolute;
+            left: -44px;
+            top: 5px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            border: 4px solid var(--primary-bg);
+            box-shadow: 0 0 0 2px var(--accent-teal), 0 0 15px var(--accent-teal);
+            z-index: 2;
+        }
+
+        .era-content {
+            background: var(--era-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 3px solid var(--accent-teal);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .era-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .era h2 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .era h2:hover {
+            color: var(--accent-teal);
+        }
+
+        .era h2::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            margin-right: 10px;
+            box-shadow: 0 0 5px var(--accent-teal);
+        }
+
+        .era ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+
+        .era li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .era li:hover {
+            color: var(--accent-teal);
+        }
+
+        .era li::before {
+            content: '•';
+            color: var(--accent-teal);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .era-details {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            background: var(--primary-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 2px solid var(--accent-teal);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .era-details h3 {
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-teal);
+            padding-bottom: 0.5rem;
+        }
+
+        .era-details p, .era-details li {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .era-details button {
+            background: var(--accent-teal);
+            color: var(--primary-bg);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .era-details button:hover {
+            background: var(--accent-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 255, 0, 0.3);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 50;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -45%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .era-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(78, 204, 163, 0.2);
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline {
+                padding-left: 30px;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .era-marker {
+                left: -34px;
+                width: 20px;
+                height: 20px;
+            }
+            
+            .era-content {
+                padding: 1rem;
+            }
+            
+            .era h2 {
+                font-size: 1.2rem;
+            }
+            
+            .era-details {
+                width: 95%;
+                padding: 1.5rem;
+            }
+            
+            .era-details h3 {
+                font-size: 1.5rem;
+            }
+            
+            .era-details p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+            
+            .era {
+                margin-bottom: 2rem;
+            }
+            
+            .era li {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="timeline-container">
+        <h1>Medieval History Timeline</h1>
+        <div class="timeline-header">Explore the rich history of medieval India (c. 750–1600 CE)</div>
+        
+        <div class="timeline">
+            <!-- Early Medieval India -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('early-medieval-main')">Early Medieval India (c. 750–1200 CE)</h2>
+                    <ul>
+                        <li onclick="showDetails('palas')">Palas Dynasty</li>
+                        <li onclick="showDetails('pratiharas')">Pratiharas Dynasty</li>
+                        <li onclick="showDetails('rashtrakutas')">Rashtrakutas Dynasty</li>
+                        <li onclick="showDetails('chalukyas')">Chalukyas Dynasty</li>
+                        <li onclick="showDetails('pallavas')">Pallavas Dynasty</li>
+                        <li onclick="showDetails('cholas')">Cholas Dynasty</li>
+                        <li onclick="showDetails('buddhism-decline')">Decline of Buddhism</li>
+                        <li onclick="showDetails('bhakti-movement')">Rise of Bhakti Movement</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Delhi Sultanate -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('delhi-main')">Delhi Sultanate (1206–1526 CE)</h2>
+                    <ul>
+                        <li onclick="showDetails('mamluk')">Mamluk (Slave) Dynasty</li>
+                        <li onclick="showDetails('khilji')">Khilji Dynasty</li>
+                        <li onclick="showDetails('tughlaq')">Tughlaq Dynasty</li>
+                        <li onclick="showDetails('sayyid')">Sayyid Dynasty</li>
+                        <li onclick="showDetails('lodi')">Lodi Dynasty</li>
+                        <li onclick="showDetails('persian-influence')">Persian Influence</li>
+                        <li onclick="showDetails('sufism')">Sufi Saints & Islam</li>
+                        <li onclick="showDetails('indo-islamic')">Indo-Islamic Architecture</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Regional Kingdoms -->
+            <div class="era">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <h2 onclick="showDetails('regional-main')">Regional Kingdoms (c. 1300–1600 CE)</h2>
+                    <ul>
+                        <li onclick="showDetails('marwar')">Rathores of Marwar</li>
+                        <li onclick="showDetails('gajapati')">Gajapati Kingdom (Odisha)</li>
+                        <li onclick="showDetails('ahom')">Ahom Kingdom (Assam)</li>
+                        <li onclick="showDetails('vijayanagara')">Vijayanagara Empire</li>
+                        <li onclick="showDetails('bahmani')">Bahmani Sultanate</li>
+                        <li onclick="showDetails('deccan-sultanates')">Deccan Sultanates</li>
+                        <li onclick="showDetails('regional-identity')">Regional Identity & Languages</li>
+                        <li onclick="showDetails('temple-architecture')">Temple Architecture</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Details -->
+    <!-- Early Medieval India Popups -->
+    <div class="era-details" id="early-medieval-main">
+        <h3>Early Medieval India Overview (c. 750–1200 CE)</h3>
+        <p>This period witnessed the fragmentation of northern India into several regional kingdoms after the decline of the Gupta Empire. Despite political fragmentation, it was a time of cultural and religious transformation.</p>
+        <p>Key characteristics:</p>
+        <ul>
+            <li>Rise of powerful regional dynasties across India</li>
+            <li>Development of regional languages and literature</li>
+            <li>Transition from Buddhism to Hinduism as the dominant religion</li>
+            <li>Emergence of the Bhakti movement</li>
+            <li>Flourishing of temple architecture and art</li>
+            <li>Growth of trade with Southeast Asia</li>
+        </ul>
+        <button onclick="hideDetails('early-medieval-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="palas">
+        <h3>Palas Dynasty (Bengal & Bihar)</h3>
+        <p>The Pala Empire (c. 750–1161 CE) was a major power in eastern India:</p>
+        <ul>
+            <li>Founded by Gopala in 750 CE</li>
+            <li>Promoted Buddhism and established monasteries</li>
+            <li>Revitalized Nalanda University as a major center of learning</li>
+            <li>Dharmapala (c. 770–810 CE) expanded the empire</li>
+            <li>Devapala (c. 810–850 CE) reached the height of power</li>
+            <li>Known for Pala style of Buddhist art and sculpture</li>
+            <li>Maintained diplomatic relations with Southeast Asian kingdoms</li>
+        </ul>
+        <button onclick="hideDetails('palas')">Close</button>
+    </div>
+
+    <div class="era-details" id="pratiharas">
+        <h3>Pratiharas Dynasty (North India)</h3>
+        <p>The Gurjara-Pratiharas (c. 730–1036 CE) dominated northern India:</p>
+        <ul>
+            <li>Founded by Nagabhata I in the 8th century</li>
+            <li>Strong military that resisted Arab invasions</li>
+            <li>Mihira Bhoja (c. 836–885 CE) was the most powerful ruler</li>
+            <li>Known as defenders of India against foreign invasions</li>
+            <li>Patrons of art, literature, and temple construction</li>
+            <li>Declined due to attacks from Rashtrakutas and internal conflicts</li>
+        </ul>
+        <button onclick="hideDetails('pratiharas')">Close</button>
+    </div>
+
+    <div class="era-details" id="rashtrakutas">
+        <h3>Rashtrakutas Dynasty (Deccan)</h3>
+        <p>The Rashtrakuta Empire (c. 753–982 CE) was a dominant power in the Deccan:</p>
+        <ul>
+            <li>Founded by Dantidurga in 753 CE</li>
+            <li>Patronized art, literature, and architecture</li>
+            <li>Built the magnificent rock-cut temples at Ellora</li>
+            <li>Krishna I built the Kailasa Temple (Ellora)</li>
+            <li>Amoghavarsha I (c. 814–878 CE) was a great scholar and poet</li>
+            <li>Maintained diplomatic relations with the Abbasid Caliphate</li>
+        </ul>
+        <button onclick="hideDetails('rashtrakutas')">Close</button>
+    </div>
+
+    <div class="era-details" id="chalukyas">
+        <h3>Chalukyas Dynasty (Karnataka)</h3>
+        <p>The Chalukyas of Badami (c. 543–753 CE) and later Chalukyas of Kalyani (c. 973–1189 CE):</p>
+        <ul>
+            <li>Pulakeshin II (c. 610–642 CE) was the greatest ruler of Early Chalukyas</li>
+            <li>Rivalries with Pallavas and other southern kingdoms</li>
+            <li>Developed distinctive Vesara style of architecture</li>
+            <li>Built temples at Badami, Aihole, and Pattadakal</li>
+            <li>Promoted Kannada and Sanskrit literature</li>
+        </ul>
+        <button onclick="hideDetails('chalukyas')">Close</button>
+    </div>
+
+    <div class="era-details" id="pallavas">
+        <h3>Pallavas Dynasty (Tamil Nadu)</h3>
+        <p>The Pallava Empire (c. 275–897 CE) was influential in southern India:</p>
+        <ul>
+            <li>Developed early Dravidian temple architecture</li>
+            <li>Mahendravarman I (c. 600–630 CE) was a great patron of arts</li>
+            <li>Built the rock-cut temples at Mahabalipuram</li>
+            <li>Narasimhavarman I (c. 630–668 CE) defeated Chalukyas</li>
+            <li>Introduced the concept of royal temples</li>
+            <li>Promoted Tamil literature and Sanskrit learning</li>
+        </ul>
+        <button onclick="hideDetails('pallavas')">Close</button>
+    </div>
+
+    <div class="era-details" id="cholas">
+        <h3>Cholas Dynasty (Tamil Nadu)</h3>
+        <p>The Chola Empire (c. 300 BCE–1279 CE) reached its zenith in the medieval period:</p>
+        <ul>
+            <li>Rajaraja Chola I (c. 985–1014 CE) expanded the empire</li>
+            <li>Rajendra Chola I (c. 1014–1044 CE) conquered northern Sri Lanka and Southeast Asia</li>
+            <li>Strong naval power with maritime trade networks</li>
+            <li>Built the Brihadeeswarar Temple at Thanjavur</li>
+            <li>Developed efficient administrative system with local self-government</li>
+            <li>Promoted Tamil literature and temple architecture</li>
+        </ul>
+        <button onclick="hideDetails('cholas')">Close</button>
+    </div>
+
+    <div class="era-details" id="buddhism-decline">
+        <h3>Decline of Buddhism</h3>
+        <p>Factors contributing to the decline of Buddhism in India:</p>
+        <ul>
+            <li>Revival of Hinduism under the Bhakti movement</li>
+            <li>Loss of royal patronage after the decline of the Pala Empire</li>
+            <li>Absorption of Buddhist practices into Hinduism</li>
+            <li>Destruction of Buddhist monasteries by invading forces</li>
+            <li>Shift of Buddhist centers to Southeast Asia and East Asia</li>
+        </ul>
+        <button onclick="hideDetails('buddhism-decline')">Close</button>
+    </div>
+
+    <div class="era-details" id="bhakti-movement">
+        <h3>Rise of Bhakti Movement</h3>
+        <p>The Bhakti movement transformed religious life in medieval India:</p>
+        <ul>
+            <li>Emphasized personal devotion to a personal god</li>
+            <li>Bridged gap between different castes and communities</li>
+            <li>Used local languages rather than Sanskrit for religious expression</li>
+            <li>Alvars and Nayanars in South India (6th-9th centuries)</li>
+            <li>Spread to North India with saints like Ramananda and Kabir</li>
+            <li>Promoted equality and rejected ritualism</li>
+        </ul>
+        <button onclick="hideDetails('bhakti-movement')">Close</button>
+    </div>
+
+    <!-- Delhi Sultanate Popups -->
+    <div class="era-details" id="delhi-main">
+        <h3>Delhi Sultanate Overview (1206–1526 CE)</h3>
+        <p>The Delhi Sultanate established Muslim rule in northern India for over 300 years:</p>
+        <ul>
+            <li>Five dynasties ruled during this period</li>
+            <li>Introduced Persian administrative systems</li>
+            <li>Developed Indo-Islamic architecture and culture</li>
+            <li>Established a centralized administrative structure</li>
+            <li>Facilitated cultural exchange between India and Central Asia</li>
+            <li>Set foundations for the Mughal Empire</li>
+        </ul>
+        <button onclick="hideDetails('delhi-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="mamluk">
+        <h3>Mamluk (Slave) Dynasty (1206–1290 CE)</h3>
+        <p>The first dynasty of the Delhi Sultanate:</p>
+        <ul>
+            <li>Founded by Qutb-ud-din Aibak, a former slave</li>
+            <li>Construction of Qutub Minar began under his rule</li>
+            <li>Iltutmish (1211–1236 CE) consolidated the sultanate</li>
+            <li>Razia Sultana (1236–1240 CE) was the first and only female ruler</li>
+            <li>Established the Iqta system of land revenue</li>
+            <li>Laid the foundation of Indo-Islamic architecture</li>
+        </ul>
+        <button onclick="hideDetails('mamluk')">Close</button>
+    </div>
+
+    <div class="era-details" id="khilji">
+        <h3>Khilji Dynasty (1290–1320 CE)</h3>
+        <p>The second dynasty known for its expansionist policies:</p>
+        <ul>
+            <li>Alauddin Khilji (1296–1316 CE) was the most powerful ruler</li>
+            <li>Introduced market reforms and price controls</li>
+            <li>Successfully repelled Mongol invasions</li>
+            <li>Conquered Gujarat, Rajasthan, and parts of South India</li>
+            <li>Established a large standing army</li>
+            <li>Built Alai Darwaza at Qutub Complex</li>
+        </ul>
+        <button onclick="hideDetails('khilji')">Close</button>
+    </div>
+
+    <div class="era-details" id="tughlaq">
+        <h3>Tughlaq Dynasty (1320–1414 CE)</h3>
+        <p>Known for ambitious but often failed administrative experiments:</p>
+        <ul>
+            <li>Muhammad bin Tughlaq (1325–1351 CE) was a controversial ruler</li>
+            <li>Shifted capital from Delhi to Daulatabad</li>
+            <li>Introduced token currency which failed disastrously</li>
+            <li>Firoz Shah Tughlaq (1351–1388 CE) built canals and public works</li>
+            <li>Decline began with Timur's invasion in 1398</li>
+        </ul>
+        <button onclick="hideDetails('tughlaq')">Close</button>
+    </div>
+
+    <div class="era-details" id="sayyid">
+        <h3>Sayyid Dynasty (1414–1451 CE)</h3>
+        <p>A period of decline following Timur's invasion:</p>
+        <ul>
+            <li>Founded by Khizr Khan who claimed descent from Prophet Muhammad</li>
+            <li>Ruled as deputies of Timur's son, Shah Rukh</li>
+            <li>Controlled only the Delhi region and surrounding areas</li>
+            <li>Weakened by internal conflicts and rebellions</li>
+            <li>Replaced by the Lodi dynasty</li>
+        </ul>
+        <button onclick="hideDetails('sayyid')">Close</button>
+    </div>
+
+    <div class="era-details" id="lodi">
+        <h3>Lodi Dynasty (1451–1526 CE)</h3>
+        <p>The last dynasty of the Delhi Sultanate:</p>
+        <ul>
+            <li>Founded by Bahlul Lodi (1451–1489 CE)</li>
+            <li>Sikandar Lodi (1489–1517 CE) moved capital to Agra</li>
+            <li>Ibrahim Lodi (1517–1526 CE) was the last ruler</li>
+            <li>Defeated by Babur at the First Battle of Panipat in 1526</li>
+            <li>Known for developing the Lodi Gardens in Delhi</li>
+        </ul>
+        <button onclick="hideDetails('lodi')">Close</button>
+    </div>
+
+    <div class="era-details" id="persian-influence">
+        <h3>Persian Influence</h3>
+        <p>Persian culture deeply influenced the Delhi Sultanate:</p>
+        <ul>
+            <li>Persian became the official language of administration</li>
+            <li>Introduction of Persian architectural elements</li>
+            <li>Adoption of Persian court culture and etiquette</li>
+            <li>Persian literature flourished in India</li>
+            <li>Development of Indo-Persian cultural synthesis</li>
+        </ul>
+        <button onclick="hideDetails('persian-influence')">Close</button>
+    </div>
+
+    <div class="era-details" id="sufism">
+        <h3>Sufi Saints & Islam</h3>
+        <p>Sufism played a crucial role in the spread of Islam:</p>
+        <ul>
+            <li>Chishti order: Moinuddin Chishti, Nizamuddin Auliya</li>
+            <li>Suhrawardi order: Baha-ud-din Zakariya</li>
+            <li>Sufi khanqahs served as centers of learning</li>
+            <li>Emphasized devotion, music, and poetry</li>
+            <li>Played a mediating role between communities</li>
+        </ul>
+        <button onclick="hideDetails('sufism')">Close</button>
+    </div>
+
+    <div class="era-details" id="indo-islamic">
+        <h3>Indo-Islamic Architecture</h3>
+        <p>Fusion of Indian and Islamic architectural styles:</p>
+        <ul>
+            <li>Qutub Minar complex in Delhi</li>
+            <li>Use of arches, domes, and minarets</li>
+            <li>Incorporation of Hindu and Jain elements</li>
+            <li>Development of the true arch and dome</li>
+            <li>Use of red sandstone and marble</li>
+        </ul>
+        <button onclick="hideDetails('indo-islamic')">Close</button>
+    </div>
+
+    <!-- Regional Kingdoms Popups -->
+    <div class="era-details" id="regional-main">
+        <h3>Regional Kingdoms Overview (c. 1300–1600 CE)</h3>
+        <p>While the Delhi Sultanate ruled the north, powerful regional kingdoms emerged throughout India:</p>
+        <ul>
+            <li>Development of distinct regional identities</li>
+            <li>Flourishing of regional languages and literature</li>
+            <li>Unique architectural styles in different regions</li>
+            <li>Continuation of Bhakti and Sufi movements</li>
+            <li>Growth of trade and urbanization</li>
+        </ul>
+        <button onclick="hideDetails('regional-main')">Close</button>
+    </div>
+
+    <div class="era-details" id="marwar">
+        <h3>Rathores of Marwar</h3>
+        <p>The Rathore Rajputs ruled Marwar (modern Jodhpur region):</p>
+        <ul>
+            <li>Founded by Rao Chuda in the 13th century</li>
+            <li>Rao Jodha established Jodhpur in 1459 CE</li>
+            <li>Known for their valor and resistance against invaders</li>
+            <li>Built the magnificent Mehrangarh Fort</li>
+            <li>Maintained independence from Delhi Sultanate</li>
+        </ul>
+        <button onclick="hideDetails('marwar')">Close</button>
+    </div>
+
+    <div class="era-details" id="gajapati">
+        <h3>Gajapati Kingdom (Odisha)</h3>
+        <p>The Eastern Ganga dynasty ruled Odisha as the Gajapati Empire:</p>
+        <ul>
+            <li>Kapilendra Deva (1434–1467 CE) founded the dynasty</li>
+            <li>Purusottama Deva (1467–1497 CE) expanded the kingdom</li>
+            <li>Prataparudra Deva (1497–1540 CE) was the last great ruler</li>
+            <li>Built the famous Sun Temple at Konark</li>
+            <li>Patrons of Odia literature and culture</li>
+        </ul>
+        <button onclick="hideDetails('gajapati')">Close</button>
+    </div>
+
+    <div class="era-details" id="ahom">
+        <h3>Ahom Kingdom (Assam)</h3>
+        <p>The Ahoms ruled Assam for nearly 600 years (1228–1826 CE):</p>
+        <ul>
+            <li>Founded by Sukaphaa, a Tai prince from present-day Myanmar</li>
+            <li>Successfully resisted Mughal expansion</li>
+            <li>Developed a unique administrative system called Paik</li>
+            <li>Created the Buranjis, historical chronicles</li>
+            <li>Built impressive fortifications and water management systems</li>
+        </ul>
+        <button onclick="hideDetails('ahom')">Close</button>
+    </div>
+
+    <div class="era-details" id="vijayanagara">
+        <h3>Vijayanagara Empire (1336–1646 CE)</h3>
+        <p>One of the greatest empires in South Indian history:</p>
+        <ul>
+            <li>Founded by Harihara I and Bukka Raya I</li>
+            <li>Krishnadevaraya (1509–1529 CE) was the greatest ruler</li>
+            <li>Capital at Hampi, a UNESCO World Heritage Site</li>
+            <li>Developed distinctive Dravidian architecture</li>
+            <li>Promoted all religions and languages</li>
+            <li>Defeated by Deccan Sultanates in 1565 CE</li>
+        </ul>
+        <button onclick="hideDetails('vijayanagara')">Close</button>
+    </div>
+
+    <div class="era-details" id="bahmani">
+        <h3>Bahmani Sultanate (1347–1527 CE)</h3>
+        <p>The first independent Muslim kingdom in South India:</p>
+        <ul>
+            <li>Founded by Alauddin Bahman Shah</li>
+            <li>Capital at Gulbarga, later moved to Bidar</li>
+            <li>Constant conflicts with Vijayanagara Empire</li>
+            <li>Developed the Deccani architectural style</li>
+            <li>Declined due to factional conflicts and split into five sultanates</li>
+        </ul>
+        <button onclick="hideDetails('bahmani')">Close</button>
+    </div>
+
+    <div class="era-details" id="deccan-sultanates">
+        <h3>Deccan Sultanates</h3>
+        <p>Five successor states to the Bahmani Sultanate:</p>
+        <ul>
+            <li>Bijapur Sultanate (Adil Shahi dynasty)</li>
+            <li>Golconda Sultanate (Qutb Shahi dynasty)</li>
+            <li>Ahmadnagar Sultanate (Nizam Shahi dynasty)</li>
+            <li>Bidar Sultanate (Barid Shahi dynasty)</li>
+            <li>Berar Sultanate (Imad Shahi dynasty)</li>
+            <li>Known for distinct architectural styles</li>
+            <li>Golconda was famous for diamond mines</li>
+        </ul>
+        <button onclick="hideDetails('deccan-sultanates')">Close</button>
+    </div>
+
+    <div class="era-details" id="regional-identity">
+        <h3>Regional Identity & Languages</h3>
+        <p>Development of distinct regional cultures:</p>
+        <ul>
+            <li>Growth of regional languages: Bengali, Marathi, Gujarati, Telugu, etc.</li>
+            <li>Development of regional literary traditions</li>
+            <li>Distinctive art forms and festivals</li>
+            <li>Local governance systems</li>
+            <li>Culinary traditions and clothing styles</li>
+        </ul>
+        <button onclick="hideDetails('regional-identity')">Close</button>
+    </div>
+
+    <div class="era-details" id="temple-architecture">
+        <h3>Temple Architecture</h3>
+        <p>Distinct regional temple styles flourished:</p>
+        <ul>
+            <li>Dravidian style in South India (gopurams, vimanas)</li>
+            <li>Vesara style in Deccan (mixed North-South elements)</li>
+            <li>Kalinga style in Odisha (Lingaraja, Sun Temple)</li>
+            <li>Bengal style (terracotta temples)</li>
+            <li>Hoysala style (star-shaped platforms, intricate carvings)</li>
+        </ul>
+        <button onclick="hideDetails('temple-architecture')">Close</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // script.js
+        // Show details for any popup
+        function showDetails(id) {
+            // Create overlay if it doesn't exist
+            let overlay = document.getElementById('overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.className = 'overlay';
+                overlay.id = 'overlay';
+                document.body.appendChild(overlay);
+            }
+            overlay.style.display = 'block';
+            
+            // Show the requested details
+            const details = document.getElementById(id);
+            details.style.display = 'block';
+            
+            // Prevent scrolling when details are open
+            document.body.style.overflow = 'hidden';
+            
+            // Close when clicking overlay
+            overlay.addEventListener('click', function() {
+                hideDetails(id);
+            });
+        }
+
+        // Hide details
+        function hideDetails(id) {
+            document.getElementById(id).style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openDetails = document.querySelector('.era-details[style*="display: block"]');
+                if (openDetails) {
+                    hideDetails(openDetails.id);
+                }
+            }
+        });
+
+        // Prevent event bubbling from details content
+        document.querySelectorAll('.era-details').forEach(details => {
+            details.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });   
+    </script>
+</body>
+</html>
